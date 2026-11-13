@@ -131,6 +131,18 @@ A avaliação do LLM-as-a-Judge no modelo inicial e no modelo aprimorado gerou a
 <img width="2160" height="2061" alt="resultados_versao_depois" src="https://github.com/user-attachments/assets/520f7343-b4b5-460e-998b-e1a3fa0d398b" />
 
 
+### Comparação
+
+| Indicador | Antes | Depois |
+| ----- | ----- | ----- |
+| Casos avaliados | 26 | 26 |
+| Aprovados | 18 (69,2%) | 23 (88,5%) |
+| Parciais | 6 (23,1%) | 2 (7,7%) |
+| Reprovados | 2 (7,7%) | 1 (3,8%) |
+| Falhas Críticas | 1 | 0 |
+| Pontuação Média | 90,96 | 96,73 |
+
+A versão posterior apresentou melhorias expressivas na precisão e competude das respostas, proteção dos dados pessoais, e na conformidade com as regras, levando a um aumento de 5,77 pontos na média.
 
 ## Testes com usuários — tempo, acerto e facilidade
 
@@ -184,6 +196,62 @@ para concluir as tarefas, a qualidade das resposta e a facilidade de uso. Após 
 
  - **Quinta pergunta:** 5
 
+### Terceiro usuário:
+
+**Tempo para concluir as tarefas:** 5 minutos e 2 segundos.
+
+**Respostas:**
+
+ - **Primeira pergunta:** 5
+
+ - **Segunda pergunta:** 5
+
+ - **Terceira pergunta:** 5
+
+ - **Quarta pergunta:** 5
+
+ - **Quinta pergunta:** 5
+
+### Quarto usuário:
+
+**Tempo para concluir as tarefas:** 4 minutos e 11 segundos.
+
+**Respostas:**
+
+ - **Primeira pergunta:** 5
+
+ - **Segunda pergunta:** 5
+
+ - **Terceira pergunta:** 4
+
+ - **Quarta pergunta:** 5
+
+ - **Quinta pergunta:** 5
+
+### Quinto usuário:
+
+**Tempo para concluir as tarefas:** 5 minutos e 2 segundos.
+
+**Respostas:**
+
+ - **Primeira pergunta:** 4
+
+ - **Segunda pergunta:** 5
+
+ - **Terceira pergunta:** 4
+
+ - **Quarta pergunta:** 4
+
+ - **Quinta pergunta:** 5
+
+### Análise das respostas:
+
+Os usuários apresentaram facilidade ao interagir com o protótipo. As tarefas foram concluídas com um tempo médio de 4 minutos e 40 segundos. Contudo, o teste revelou que perguntas não específicas não são corretamente reconhecidas pelo agente, mesmo que as informações necessárias estajam na pergunta e não tenha nenhuma violação da regra de negócio.
+
+Em geral, mesmo que o problema identificado acima tenha resultado em um contra tempo para a realização das tarefas, os usuários conseguiram concluir as tarefas com autonomia, entendo as respostas de forma clara.
+
 ## Limitações
 
 Uma das limitações do agente é a falta de flexibilidade ao interagir com ele. Por conta dos critérios rigorosos de segurança e conformidade, perguntas que não sejam claras, específicas e objetivas podem ser mal interpretadas pelo agente e respondidas com uma mensagem padrão quando o agente não reconhece a pergunta.
+
+Outra limitação é um fato de que o LLM-as-a-Judge, sendo também um modelo de IA, pode cometer erros na avaliação, dessa forma não eliminando a necessidade de revisão humana.
