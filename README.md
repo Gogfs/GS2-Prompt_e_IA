@@ -12,6 +12,10 @@
 
 Este projeto consiste em um assistente de Inteligência Artificial introdutório que tem como objetivo auxiliar o acesso dos cidadãos a informações uteis do cotidiano
 
+O notebook da avaliação pode ser acessado pelo link abaixo:
+
+https://colab.research.google.com/drive/1inrDee5_hGfXsxJEadSdSq6fLBagjHf3?usp=sharing
+
 ## Arquitetura e justificativas
 
 ```text
@@ -49,7 +53,7 @@ Métricas e comparação antes/depois
 - **Framework — LangChain:** organiza prompt, modelo e parser, permite trocar o provedor de LLM sem reescrever o agente e possui integrações para modelos locais e APIs. LangGraph seria útil em fluxos com vários estados/agentes, mas seria complexidade desnecessária para sete fichas e um fluxo único.
 - **Arquitetura — um agente:** o escopo é pequeno e delimitado. Um agente consulta as fichas e formula a orientação; validações determinísticas ficam fora do LLM para tornar previsíveis as regras de privacidade e segurança.
 - **Recuperação — TF-IDF local:** para sete fichas, a busca lexical é um ponto de partida simples, reproduzível e sem embeddings externos. A limitação é compreender pior algumas paráfrases do que uma busca semântica.
-- **Modelo — configurável:** por padrão, o notebook usa o gpt-4o-mini. Também oferece Groq e OpenAI, caso sejam autorizados pelo professor. O uso local reduz o compartilhamento com serviços externos. APIs externas exigem chave e autorização.
+- **Modelo — configurável:** por padrão, o notebook usa o gpt-4o-mini. O modelo foi escolhido por oferecer um equilíbrio entre processamento em nuvem e custo. Também oferece Groq e Ollama, caso testes posteriores entre modelos sejam implementados. O uso local reduz o compartilhamento com serviços externos. APIs externas exigem chave e autorização.
 - **Onde entra IA:** síntese em linguagem natural e avaliação semântica. **Onde bastam algoritmos:** validação, mascaramento de PII, detecção de padrões de ataque, classificação inicial de escopo, recuperação lexical e cálculo de métricas.
 - **Limitação:** o juiz também é um LLM e pode errar. Seus resultados precisam ser conferidos manualmente em uma amostra, conforme o enunciado.
 
@@ -113,3 +117,73 @@ Além da nota do juiz, medimos a recuperação:
 - **Falhas críticas:** casos com violação grave de privacidade ou resistência a injection.
 
 Casos sem ficha esperada (fora de escopo, entrada inválida, recusa de injection e aviso de limitação) não entram no denominador de RAG.
+
+## Resultados dos testes do modelo
+
+A avaliação do LLM-as-a-Judge no modelo inicial e no modelo aprimorado gerou as tabelas abaixo (recomenda-se abrir as imagens em outra guia para uma melhor visualização):
+
+### Modelo inicial:
+
+<img width="2160" height="2061" alt="resultados_versao_antes" src="https://github.com/user-attachments/assets/a3c49496-cdc9-4695-9d4b-b14760d0bb47" />
+
+### Modelo aprimorado:
+
+<img width="2160" height="2061" alt="resultados_versao_depois" src="https://github.com/user-attachments/assets/520f7343-b4b5-460e-998b-e1a3fa0d398b" />
+
+
+
+## Testes com usuários — tempo, acerto e facilidade
+
+Para validar a eficiência do agente com usuários reais, foi elaborado um teste com três tarefas com o objetivo de medir a usabilidade do protótipo, levando em conta o tempo 
+para concluir as tarefas, a qualidade das resposta e a facilidade de uso. Após a realização das tarefas, os usuários respondem a um questionário de satisfação.
+
+### Tarefas
+- **T1:** descobrir quais documentos levar para a segunda via do RG.
+- **T2:** descobrir o custo e o prazo da certidão de nascimento pelo portal.
+- **T3:** descobrir se uma pessoa com CNH vencida há 45 dias pode dirigir.
+
+### Questionário (1 = discordo totalmente; 5 = concordo totalmente)
+1. Encontrei a informação que precisava com facilidade.
+2. As respostas foram claras e fáceis de entender.
+3. As fontes e os avisos foram compreensíveis.
+4. Consegui navegar e formular perguntas sem ajuda.
+5. No geral, fiquei satisfeito(a) com o uso do protótipo.
+
+## Resultados dos testes
+
+### Primeiro usuário:
+
+**Tempo para concluir as tarefas:** 3 minutos e 51 segundos.
+
+**Respostas:**
+
+ - **Primeira pergunta:** 4
+
+ - **Segunda pergunta:** 5
+
+ - **Terceira pergunta:** 5
+
+ - **Quarta pergunta:** 5
+
+ - **Quinta pergunta:** 5
+
+
+### Segundo usuário:
+
+**Tempo para concluir as tarefas:** 5 minutos e 15 segundos.
+
+**Respostas:**
+
+ - **Primeira pergunta:** 2
+
+ - **Segunda pergunta:** 5
+
+ - **Terceira pergunta:** 5
+
+ - **Quarta pergunta:** 3
+
+ - **Quinta pergunta:** 5
+
+## Limitações
+
+Uma das limitações do agente é a falta de flexibilidade ao interagir com ele. Por conta dos critérios rigorosos de segurança e conformidade, perguntas que não sejam claras, específicas e objetivas podem ser mal interpretadas pelo agente e respondidas com uma mensagem padrão quando o agente não reconhece a pergunta.
